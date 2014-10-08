@@ -1,0 +1,84 @@
+<div class="templateMails index">
+	<h2><?php echo __('Template Mails'); ?></h2>
+    <?php
+
+        echo $this->Form->create('TemplateMail', array(
+            'url' => array_merge(array('action' => 'index'), $this->params['pass'])
+        ));
+        echo $this->Form->input('subject', array('div' => false,'empty'=>true, 'required' => false));
+        echo $this->Form->input('name', array('div' => false,'empty'=>true, 'required' => false));
+        echo $this->Form->input('body', array('div' => false,'empty'=>true, 'required' => false));
+        echo $this->Form->input('template_mail_type_id', array('type' => 'select','div' => false,'empty'=>'-----', 'required' => false));
+        echo '</br>';
+        echo $this->Form->submit(__('Search', true), array('div' => false));
+        echo $this->Form->end();
+
+    ?>
+	<table cellpadding="0" cellspacing="0">
+	<thead>
+	<tr>
+			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			<th><?php echo $this->Paginator->sort('subject'); ?></th>
+			<th><?php echo $this->Paginator->sort('body'); ?></th>
+			<th><?php echo $this->Paginator->sort('status'); ?></th>
+			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('created'); ?></th>
+			<th><?php echo $this->Paginator->sort('modified'); ?></th>
+			<th><?php echo $this->Paginator->sort('cc'); ?></th>
+			<th><?php echo $this->Paginator->sort('bcc'); ?></th>
+			<th><?php echo $this->Paginator->sort('name'); ?></th>
+			<th><?php echo $this->Paginator->sort('section_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('template_mail_type_id'); ?></th>
+			<th class="actions"><?php echo __('Actions'); ?></th>
+	</tr>
+	</thead>
+	<tbody>
+	<?php foreach ($templateMails as $templateMail): ?>
+	<tr>
+		<td><?php echo h($templateMail['TemplateMail']['id']); ?>&nbsp;</td>
+		<td><?php echo h($templateMail['TemplateMail']['subject']); ?>&nbsp;</td>
+		<td><?php echo h($templateMail['TemplateMail']['body']); ?>&nbsp;</td>
+		<td><?php echo h($templateMail['TemplateMail']['status']); ?>&nbsp;</td>
+		<td><?php echo h($templateMail['TemplateMail']['user_id']); ?>&nbsp;</td>
+		<td><?php echo h($templateMail['TemplateMail']['created']); ?>&nbsp;</td>
+		<td><?php echo h($templateMail['TemplateMail']['modified']); ?>&nbsp;</td>
+		<td><?php echo h($templateMail['TemplateMail']['cc']); ?>&nbsp;</td>
+		<td><?php echo h($templateMail['TemplateMail']['bcc']); ?>&nbsp;</td>
+		<td><?php echo h($templateMail['TemplateMail']['name']); ?>&nbsp;</td>
+		<td><?php echo h($templateMail['TemplateMail']['section_id']); ?>&nbsp;</td>
+		<td>
+			<?php echo $this->Html->link($templateMail['TemplateMailType']['name'], array('controller' => 'template_mail_types', 'action' => 'view', $templateMail['TemplateMailType']['id'])); ?>
+		</td>
+		<td class="actions">
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $templateMail['TemplateMail']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $templateMail['TemplateMail']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $templateMail['TemplateMail']['id']), array(), __('Are you sure you want to delete # %s?', $templateMail['TemplateMail']['id'])); ?>
+		</td>
+	</tr>
+<?php endforeach; ?>
+	</tbody>
+	</table>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	));
+	?>	</p>
+	<div class="paging">
+	<?php
+		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ''));
+		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+	?>
+	</div>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('New Template Mail'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Template Mail Types'), array('controller' => 'template_mail_types', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Template Mail Type'), array('controller' => 'template_mail_types', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Attach Files'), array('controller' => 'attach_files', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Attach File'), array('controller' => 'attach_files', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
